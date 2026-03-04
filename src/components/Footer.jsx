@@ -18,7 +18,7 @@ export default function Footer() {
               <a href="#" className="w-8 h-8 border border-dark-border flex items-center justify-center text-zinc-500 hover:text-gold hover:border-gold transition-colors">
                 <Instagram size={14} />
               </a>
-              <a href="https://t.me/owkfoosq" target="_blank" rel="noopener noreferrer" className="w-8 h-8 border border-dark-border flex items-center justify-center text-zinc-500 hover:text-gold hover:border-gold transition-colors">
+              <a href="https://t.me/owkfooslq" target="_blank" rel="noopener noreferrer" className="w-8 h-8 border border-dark-border flex items-center justify-center text-zinc-500 hover:text-gold hover:border-gold transition-colors">
                 <Send size={14} />
               </a>
             </div>
@@ -49,7 +49,7 @@ export default function Footer() {
           <div>
             <h4 className="gold-label mb-4">Контакты</h4>
             <ul className="space-y-2.5 font-body text-xs text-zinc-500">
-              <li>Telegram: @owkfoosq</li>
+              <li>Telegram: @owkfooslq</li>
               <li>WhatsApp: +7 (903) 482-17-65</li>
               <li className="pt-2 text-zinc-700">Работаем 24/7</li>
             </ul>

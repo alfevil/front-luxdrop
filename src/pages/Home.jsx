@@ -237,8 +237,8 @@ export default function Home() {
             <p className="font-body text-sm text-zinc-400 mb-6">
               Подпишись на Telegram — там анонсы поставок, эксклюзивные цены и розыгрыши.
             </p>
-            <a href="https://t.me/owkfoosq" target="_blank" rel="noopener noreferrer" className="btn-gold inline-flex items-center gap-2">
-              Подписаться <ArrowRight size={16} />
+            <a href="https://t.me/owkfooslq" target="_blank" rel="noopener noreferrer" className="btn-gold inline-flex items-center gap-2">
+              Подписаться <ArrowRight className="w-4 h-4" />
             </a>
           </div>
           <div className="absolute right-0 bottom-0 w-64 h-64 bg-gold/5 rounded-full -translate-x-8 translate-y-8" />
