@@ -32,7 +32,7 @@ export default function Catalog() {
   });
 
   useEffect(() => {
-    productsAPI.getCategories().then(res => setCategories(res.data));
+    productsAPI.getCategories().then(res => setCategories(res.data || []));
   }, []);
 
   const fetchProducts = useCallback(async () => {
@@ -41,7 +41,7 @@ export default function Catalog() {
     Object.entries(filters).forEach(([k, v]) => { if (v) params[k] = v; });
     try {
       const res = await productsAPI.getAll(params);
-      setProducts(res.data.products);
+      setProducts(res.data?.products || []);
     } catch (err) {
       console.error(err);
     } finally {

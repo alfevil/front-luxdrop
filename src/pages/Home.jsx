@@ -27,7 +27,7 @@ export default function Home() {
 
   useEffect(() => {
     productsAPI.getAll({ featured: true, limit: 8 })
-      .then(res => setFeatured(res.data.products))
+      .then(res => setFeatured(res.data?.products || []))
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
   }, []);
