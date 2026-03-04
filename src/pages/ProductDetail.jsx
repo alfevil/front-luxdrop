@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ShoppingBag, Heart, Star, Shield, Truck, RefreshCw, ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ShoppingBag, Heart, Star, Shield, Truck, RefreshCw, ArrowLeft, ChevronLeft, ChevronRight, X, Ruler } from 'lucide-react';
 import { productsAPI } from '../services/api';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
@@ -9,6 +9,105 @@ import toast from 'react-hot-toast';
 
 const formatPrice = (price) => new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price);
 const getDiscount = (price, original) => (!original || original <= price) ? null : Math.round((1 - price / original) * 100);
+
+const SHOE_SIZES = [
+  { eu: '36', us: '4', cm: '22.5' },
+  { eu: '37', us: '5', cm: '23.5' },
+  { eu: '38', us: '5.5', cm: '24' },
+  { eu: '39', us: '6.5', cm: '24.5' },
+  { eu: '40', us: '7', cm: '25.5' },
+  { eu: '41', us: '8', cm: '26' },
+  { eu: '42', us: '8.5', cm: '27' },
+  { eu: '43', us: '9.5', cm: '27.5' },
+  { eu: '44', us: '10', cm: '28.5' },
+  { eu: '45', us: '11', cm: '29' },
+  { eu: '46', us: '12', cm: '30' },
+];
+
+const CLOTHING_SIZES = [
+  { size: 'XS', chest: '86', waist: '70', hips: '90' },
+  { size: 'S', chest: '90', waist: '75', hips: '94' },
+  { size: 'M', chest: '96', waist: '80', hips: '100' },
+  { size: 'L', chest: '102', waist: '86', hips: '106' },
+  { size: 'XL', chest: '108', waist: '92', hips: '112' },
+  { size: 'XXL', chest: '114', waist: '98', hips: '118' },
+];
+
+function SizeGuideModal({ onClose, isShoes }) {
+  return (
+    <div className="fixed inset-0 bg-dark-DEFAULT/90 backdrop-blur-sm z-[60] flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-dark-card border border-dark-border w-full max-w-lg max-h-[85vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+        <div className="sticky top-0 bg-dark-card border-b border-dark-border p-5 flex items-center justify-between z-10">
+          <div className="flex items-center gap-3">
+            <Ruler size={18} className="text-gold" />
+            <h2 className="font-display text-xl font-light text-white">Таблица размеров</h2>
+          </div>
+          <button onClick={onClose} className="text-zinc-500 hover:text-white transition-colors">
+            <X size={20} />
+          </button>
+        </div>
+        <div className="p-5">
+          {isShoes ? (
+            <>
+              <p className="gold-label mb-3">Обувь</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-dark-border">
+                      <th className="text-left py-2.5 px-3 font-mono text-xs text-gold font-normal tracking-wider">EU</th>
+                      <th className="text-left py-2.5 px-3 font-mono text-xs text-gold font-normal tracking-wider">US</th>
+                      <th className="text-left py-2.5 px-3 font-mono text-xs text-gold font-normal tracking-wider">CM</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {SHOE_SIZES.map(row => (
+                      <tr key={row.eu} className="border-b border-dark-border/50 hover:bg-dark-muted/30 transition-colors">
+                        <td className="py-2.5 px-3 font-mono text-xs text-white">{row.eu}</td>
+                        <td className="py-2.5 px-3 font-mono text-xs text-zinc-400">{row.us}</td>
+                        <td className="py-2.5 px-3 font-mono text-xs text-zinc-400">{row.cm}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="gold-label mb-3">Одежда</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-dark-border">
+                      <th className="text-left py-2.5 px-3 font-mono text-xs text-gold font-normal tracking-wider">Размер</th>
+                      <th className="text-left py-2.5 px-3 font-mono text-xs text-gold font-normal tracking-wider">Грудь (см)</th>
+                      <th className="text-left py-2.5 px-3 font-mono text-xs text-gold font-normal tracking-wider">Талия (см)</th>
+                      <th className="text-left py-2.5 px-3 font-mono text-xs text-gold font-normal tracking-wider">Бёдра (см)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {CLOTHING_SIZES.map(row => (
+                      <tr key={row.size} className="border-b border-dark-border/50 hover:bg-dark-muted/30 transition-colors">
+                        <td className="py-2.5 px-3 font-mono text-xs text-white font-medium">{row.size}</td>
+                        <td className="py-2.5 px-3 font-mono text-xs text-zinc-400">{row.chest}</td>
+                        <td className="py-2.5 px-3 font-mono text-xs text-zinc-400">{row.waist}</td>
+                        <td className="py-2.5 px-3 font-mono text-xs text-zinc-400">{row.hips}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
+          <div className="mt-5 p-3 bg-dark-muted/30 border border-dark-border">
+            <p className="font-mono text-[10px] text-zinc-500 leading-relaxed">
+              ⚠️ Размеры могут отличаться в зависимости от бренда. Рекомендуем сверяться с размерной сеткой производителя.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -21,6 +120,7 @@ export default function ProductDetail() {
   const [imgIndex, setImgIndex] = useState(0);
   const [adding, setAdding] = useState(false);
   const [favorited, setFavorited] = useState(false);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -37,7 +137,7 @@ export default function ProductDetail() {
   const handleAddToCart = async () => {
     if (!user) { toast.error('Войдите, чтобы добавить в корзину'); return; }
     if (product?.sizes?.length > 0 && !selectedSize) { toast.error('Выберите размер'); return; }
-    
+
     setAdding(true);
     try {
       await addToCart(product.id, selectedSize, selectedColor);
@@ -152,9 +252,8 @@ export default function ProductDetail() {
                   <button
                     key={i}
                     onClick={() => setImgIndex(i)}
-                    className={`w-16 h-16 overflow-hidden border-2 transition-colors ${
-                      i === imgIndex ? 'border-gold' : 'border-dark-border hover:border-zinc-600'
-                    }`}
+                    className={`w-16 h-16 overflow-hidden border-2 transition-colors ${i === imgIndex ? 'border-gold' : 'border-dark-border hover:border-zinc-600'
+                      }`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
                   </button>
@@ -172,7 +271,7 @@ export default function ProductDetail() {
             {product.rating > 0 && (
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex gap-0.5">
-                  {[1,2,3,4,5].map(s => (
+                  {[1, 2, 3, 4, 5].map(s => (
                     <Star key={s} size={12} className={s <= Math.round(product.rating) ? 'text-gold fill-gold' : 'text-zinc-700 fill-zinc-700'} />
                   ))}
                 </div>
@@ -203,9 +302,8 @@ export default function ProductDetail() {
                     <button
                       key={color}
                       onClick={() => setSelectedColor(color)}
-                      className={`px-3 py-1.5 text-xs font-body border transition-all ${
-                        selectedColor === color ? 'border-gold text-gold' : 'border-dark-border text-zinc-400 hover:border-zinc-500'
-                      }`}
+                      className={`px-3 py-1.5 text-xs font-body border transition-all ${selectedColor === color ? 'border-gold text-gold' : 'border-dark-border text-zinc-400 hover:border-zinc-500'
+                        }`}
                     >
                       {color}
                     </button>
@@ -219,18 +317,17 @@ export default function ProductDetail() {
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-body text-sm text-zinc-300">Размер</h3>
-                  <button className="font-mono text-xs text-zinc-600 hover:text-gold transition-colors">Таблица размеров</button>
+                  <button onClick={() => setShowSizeGuide(true)} className="font-mono text-xs text-zinc-600 hover:text-gold transition-colors">Таблица размеров</button>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {product.sizes.map(size => (
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`min-w-[44px] py-2 px-3 text-sm font-mono border transition-all ${
-                        selectedSize === size
+                      className={`min-w-[44px] py-2 px-3 text-sm font-mono border transition-all ${selectedSize === size
                           ? 'border-gold bg-gold text-dark-DEFAULT font-bold'
                           : 'border-dark-border text-zinc-400 hover:border-zinc-500'
-                      }`}
+                        }`}
                     >
                       {size}
                     </button>
@@ -263,9 +360,8 @@ export default function ProductDetail() {
               </button>
               <button
                 onClick={handleFavorite}
-                className={`w-12 h-12 border flex items-center justify-center transition-all ${
-                  favorited ? 'border-gold bg-gold/10 text-gold' : 'border-dark-border text-zinc-400 hover:border-gold hover:text-gold'
-                }`}
+                className={`w-12 h-12 border flex items-center justify-center transition-all ${favorited ? 'border-gold bg-gold/10 text-gold' : 'border-dark-border text-zinc-400 hover:border-gold hover:text-gold'
+                  }`}
               >
                 <Heart size={18} fill={favorited ? 'currentColor' : 'none'} />
               </button>
@@ -303,6 +399,14 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+
+      {/* Size Guide Modal */}
+      {showSizeGuide && (
+        <SizeGuideModal
+          onClose={() => setShowSizeGuide(false)}
+          isShoes={product.sizes?.some(s => /^\d/.test(s))}
+        />
+      )}
     </div>
   );
 }

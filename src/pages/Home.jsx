@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Shield, Zap, Globe, TrendingUp } from 'lucide-react';
 import { productsAPI } from '../services/api';
@@ -6,18 +6,18 @@ import ProductCard from '../components/ProductCard';
 
 const CATEGORIES = [
   { label: 'Кроссовки', slug: 'sneakers', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80&auto=format&fit=crop' },
-  { label: 'Одежда',    slug: 'clothing',    img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80&auto=format&fit=crop' },
-  { label: 'Аксессуары',slug: 'accessories', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80&auto=format&fit=crop' },
-  { label: 'Сумки',     slug: 'bags',        img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80&auto=format&fit=crop' },
+  { label: 'Одежда', slug: 'clothing', img: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80&auto=format&fit=crop' },
+  { label: 'Аксессуары', slug: 'accessories', img: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80&auto=format&fit=crop' },
+  { label: 'Сумки', slug: 'bags', img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80&auto=format&fit=crop' },
 ];
 
 const BRANDS = ['Nike', 'Adidas', 'Supreme', 'Stone Island', 'New Balance', 'Fear of God', 'Carhartt', 'New Era'];
 
 const perks = [
-  { icon: Shield,     title: 'Верификация',      desc: 'Каждый товар проходит проверку подлинности через Poizon' },
-  { icon: Globe,      title: 'Прямая доставка',  desc: 'Доставляем напрямую с китайского рынка и Taobao' },
-  { icon: Zap,        title: 'Быстро',            desc: 'Среднее время доставки 7–14 дней до двери' },
-  { icon: TrendingUp, title: 'Актуальные цены',  desc: 'Честные цены без наценок посредников' },
+  { icon: Shield, title: 'Верификация', desc: 'Каждый товар проходит проверку подлинности через Poizon' },
+  { icon: Globe, title: 'Прямая доставка', desc: 'Доставляем напрямую с китайского рынка и Taobao' },
+  { icon: Zap, title: 'Быстро', desc: 'Среднее время доставки 7–14 дней до двери' },
+  { icon: TrendingUp, title: 'Актуальные цены', desc: 'Честные цены без наценок посредников' },
 ];
 
 export default function Home() {
@@ -27,8 +27,25 @@ export default function Home() {
   useEffect(() => {
     productsAPI.getAll({ featured: true, limit: 8 })
       .then(res => setFeatured(res.data?.products || []))
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => setLoading(false));
+
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -144,7 +161,7 @@ export default function Home() {
       </div>
 
       {/* CATEGORIES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20 animate-on-scroll">
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="gold-label mb-2">Разделы</p>
@@ -155,7 +172,7 @@ export default function Home() {
           {CATEGORIES.map((cat) => (
             <Link key={cat.slug} to={`/catalog?category=${cat.slug}`} className="relative aspect-[3/4] overflow-hidden group">
               <img src={cat.img} alt={cat.label} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                onError={(e) => { e.target.style.display='none'; }} />
+                onError={(e) => { e.target.style.display = 'none'; }} />
               <div className="absolute inset-0 bg-gradient-to-t from-dark-DEFAULT via-dark-DEFAULT/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <p className="gold-label text-[10px] mb-1">Смотреть →</p>
@@ -168,7 +185,7 @@ export default function Home() {
       </section>
 
       {/* FEATURED */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 animate-on-scroll">
         <div className="flex items-end justify-between mb-10">
           <div>
             <p className="gold-label mb-2">Топ выбор</p>
@@ -190,7 +207,7 @@ export default function Home() {
       </section>
 
       {/* PERKS */}
-      <section className="border-t border-dark-border bg-dark-card">
+      <section className="border-t border-dark-border bg-dark-card animate-on-scroll">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {perks.map(({ icon: Icon, title, desc }) => (
@@ -209,8 +226,9 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-        <div className="relative overflow-hidden bg-dark-card border border-dark-border p-10 md:p-16">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20 animate-on-scroll">
+        <div className="relative overflow-hidden bg-gradient-to-br from-dark-card to-[#1a1a1a] border border-gold/20 p-10 md:p-16 rounded-lg shadow-[0_0_50px_rgba(201,168,76,0.05)]">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDEiLz4KPHBhdGggZD0iTTAgMEw4IDhaTTAgOEw4IDBaIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiBzdHJva2Utd2lkdGg9IjEiLz4KPC9zdmc+')] opacity-50" />
           <div className="relative z-10 max-w-lg">
             <p className="gold-label mb-3">Telegram канал</p>
             <h2 className="font-display text-4xl md:text-5xl font-light text-white mb-4">
@@ -219,7 +237,7 @@ export default function Home() {
             <p className="font-body text-sm text-zinc-400 mb-6">
               Подпишись на Telegram — там анонсы поставок, эксклюзивные цены и розыгрыши.
             </p>
-            <a href="https://t.me/owkfooslq" className="btn-gold inline-flex items-center gap-2">
+            <a href="https://t.me/owkfoosq" target="_blank" rel="noopener noreferrer" className="btn-gold inline-flex items-center gap-2">
               Подписаться <ArrowRight size={16} />
             </a>
           </div>
