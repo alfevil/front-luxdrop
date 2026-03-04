@@ -34,7 +34,6 @@ export default function Profile() {
         </div>
 
         <div className="grid sm:grid-cols-3 gap-6">
-          {/* Sidebar */}
           <div className="space-y-2">
             {[
               ['/profile', User, 'Профиль', true],
@@ -44,16 +43,14 @@ export default function Profile() {
               <Link
                 key={href}
                 to={href}
-                className={`flex items-center gap-3 px-4 py-3 text-sm font-body transition-colors ${
-                  active ? 'text-gold border-l-2 border-gold bg-gold/10' : 'text-zinc-400 hover:text-white hover:bg-dark-muted border-l-2 border-transparent'
-                }`}
+                className={`flex items-center gap-3 px-4 py-3 text-sm font-body transition-colors ${active ? 'text-gold border-l-2 border-gold bg-gold/10' : 'text-zinc-400 hover:text-white hover:bg-dark-muted border-l-2 border-transparent'
+                  }`}
               >
                 <Icon size={16} /> {label}
               </Link>
             ))}
           </div>
 
-          {/* Main */}
           <div className="sm:col-span-2 space-y-4">
             <div className="card p-6">
               <div className="flex items-center justify-between mb-6">
@@ -65,7 +62,6 @@ export default function Profile() {
                 )}
               </div>
 
-              {/* Avatar */}
               <div className="flex items-center gap-4 mb-6 pb-6 border-b border-dark-border">
                 <div className="w-16 h-16 bg-dark-muted border border-dark-border flex items-center justify-center flex-shrink-0">
                   {user?.avatar_url ? (

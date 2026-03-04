@@ -45,12 +45,10 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-dark-DEFAULT/95 backdrop-blur-sm border-b border-dark-border' : 'bg-transparent'
-      }`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-dark-DEFAULT/95 backdrop-blur-sm border-b border-dark-border' : 'bg-transparent'
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
             <Link to="/" className="flex flex-col leading-none group">
               <span className="font-display text-2xl md:text-3xl font-light tracking-[0.15em] text-white group-hover:text-gold transition-colors duration-200">
                 LUXDROP
@@ -60,7 +58,6 @@ export default function Navbar() {
               </span>
             </Link>
 
-            {/* Desktop nav links */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map(link => (
                 <Link
@@ -74,9 +71,7 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Actions */}
             <div className="flex items-center gap-2 md:gap-4">
-              {/* Search */}
               <button
                 onClick={() => setSearchOpen(true)}
                 className="p-2 text-zinc-400 hover:text-white transition-colors duration-200"
@@ -84,7 +79,6 @@ export default function Navbar() {
                 <Search size={20} />
               </button>
 
-              {/* Cart */}
               <Link to="/cart" className="p-2 relative text-zinc-400 hover:text-white transition-colors duration-200">
                 <ShoppingBag size={20} />
                 {count > 0 && (
@@ -94,7 +88,6 @@ export default function Navbar() {
                 )}
               </Link>
 
-              {/* Profile */}
               {user ? (
                 <div className="relative group">
                   <button className="flex items-center gap-2 p-2 text-zinc-400 hover:text-white transition-colors">
@@ -125,7 +118,6 @@ export default function Navbar() {
                 </Link>
               )}
 
-              {/* Mobile menu toggle */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="md:hidden p-2 text-zinc-400 hover:text-white transition-colors"
@@ -136,7 +128,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile menu */}
         {menuOpen && (
           <div className="md:hidden bg-dark-card border-t border-dark-border">
             <div className="px-4 py-4 space-y-1">
@@ -160,7 +151,6 @@ export default function Navbar() {
         )}
       </nav>
 
-      {/* Search overlay */}
       {searchOpen && (
         <div className="fixed inset-0 bg-dark-DEFAULT/95 backdrop-blur-sm z-[60] flex items-start justify-center pt-32">
           <div className="w-full max-w-2xl px-6">

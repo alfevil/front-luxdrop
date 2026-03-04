@@ -30,7 +30,6 @@ export default function Home() {
       .catch(() => { })
       .finally(() => setLoading(false));
 
-    // Intersection Observer for scroll animations
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -50,18 +49,14 @@ export default function Home() {
 
   return (
     <div>
-      {/* HERO — чистый CSS, без зависимости от внешних фото */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-[#080808]">
-        {/* Фоновые декоративные элементы */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          {/* Большой золотой круг справа */}
           <div style={{
             position: 'absolute', right: '-10%', top: '50%', transform: 'translateY(-50%)',
             width: '70vw', height: '70vw', maxWidth: '900px', maxHeight: '900px',
             borderRadius: '50%',
             background: 'radial-gradient(circle, rgba(201,168,76,0.07) 0%, rgba(201,168,76,0.03) 40%, transparent 70%)',
           }} />
-          {/* Тонкие линии */}
           <div style={{
             position: 'absolute', right: '8%', top: '15%',
             width: '1px', height: '40vh',
@@ -72,7 +67,6 @@ export default function Home() {
             width: '120px', height: '1px',
             background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.3), transparent)',
           }} />
-          {/* Крупная буква-декор */}
           <div style={{
             position: 'absolute', right: '-2%', top: '50%', transform: 'translateY(-50%)',
             fontFamily: 'Cormorant Garamond, serif',
@@ -87,7 +81,6 @@ export default function Home() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full pt-28 pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Левая часть — текст */}
             <div>
               <p className="gold-label mb-5 animate-fade-up" style={{ animationDelay: '100ms' }}>
                 🔥 Новые поставки каждую неделю
@@ -114,7 +107,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Правая часть — статы в виде карточек */}
             <div className="hidden lg:grid grid-cols-2 gap-4 animate-fade-up" style={{ animationDelay: '500ms' }}>
               {[
                 { num: '500+', label: 'Товаров в каталоге', sub: 'обновляется еженедельно' },
@@ -136,7 +128,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Мобильные статы */}
           <div className="grid grid-cols-3 gap-4 mt-12 lg:hidden">
             {[['500+', 'Товаров'], ['4.8★', 'Рейтинг'], ['2K+', 'Клиентов']].map(([num, label]) => (
               <div key={label} className="text-center">
@@ -148,7 +139,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MARQUEE */}
       <div className="border-y border-dark-border overflow-hidden py-4 bg-dark-card">
         <div className="flex gap-12 whitespace-nowrap" style={{ animation: 'marquee 20s linear infinite' }}>
           {[...BRANDS, ...BRANDS, ...BRANDS].map((brand, i) => (
@@ -160,7 +150,6 @@ export default function Home() {
         <style>{`@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-33.33%); } }`}</style>
       </div>
 
-      {/* CATEGORIES */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20 animate-on-scroll">
         <div className="flex items-end justify-between mb-10">
           <div>
@@ -184,7 +173,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURED */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-20 animate-on-scroll">
         <div className="flex items-end justify-between mb-10">
           <div>
@@ -206,7 +194,6 @@ export default function Home() {
         )}
       </section>
 
-      {/* PERKS */}
       <section className="border-t border-dark-border bg-dark-card animate-on-scroll">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -225,7 +212,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20 animate-on-scroll">
         <div className="relative overflow-hidden bg-gradient-to-br from-dark-card to-[#1a1a1a] border border-gold/20 p-10 md:p-16 rounded-lg shadow-[0_0_50px_rgba(201,168,76,0.05)]">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDEiLz4KPHBhdGggZD0iTTAgMEw4IDhaTTAgOEw4IDBaIiBzdHJva2U9IiNmZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiBzdHJva2Utd2lkdGg9IjEiLz4KPC9zdmc+')] opacity-50" />

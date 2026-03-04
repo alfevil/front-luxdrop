@@ -30,7 +30,6 @@ export default function Catalog() {
     featured: searchParams.get('featured') || '',
   });
 
-  // FIX: sync filters when URL changes from navbar clicks
   useEffect(() => {
     setFilters(prev => ({
       ...prev,
@@ -81,7 +80,7 @@ export default function Catalog() {
           <div>
             <p className="gold-label mb-1">
               {filters.search ? `Поиск: "${filters.search}"` :
-               filters.category ? categories.find(c => c.slug === filters.category)?.name : 'Все товары'}
+                filters.category ? categories.find(c => c.slug === filters.category)?.name : 'Все товары'}
             </p>
             <h1 className="font-display text-4xl font-light text-white">Каталог</h1>
           </div>

@@ -29,7 +29,7 @@ export default function ProductCard({ product, index = 0 }) {
     e.preventDefault();
     e.stopPropagation();
     if (!user) { toast.error('Войдите, чтобы добавить в избранное'); return; }
-    
+
     try {
       if (favorited) {
         await favoritesAPI.remove(product.id);
@@ -49,7 +49,7 @@ export default function ProductCard({ product, index = 0 }) {
     e.preventDefault();
     e.stopPropagation();
     if (!user) { toast.error('Войдите, чтобы добавить в корзину'); return; }
-    
+
     setAdding(true);
     try {
       await addToCart(product.id, product.sizes?.[0], product.colors?.[0]);
@@ -68,7 +68,6 @@ export default function ProductCard({ product, index = 0 }) {
       style={{ animationDelay: `${index * 80}ms` }}
     >
       <div className="card overflow-hidden hover:border-gold/30 transition-all duration-300">
-        {/* Image area */}
         <div
           className="relative aspect-square overflow-hidden bg-dark-muted"
           onMouseEnter={() => product.images?.length > 1 && setImgIndex(1)}
@@ -81,7 +80,6 @@ export default function ProductCard({ product, index = 0 }) {
             loading="lazy"
           />
 
-          {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5">
             {discount && (
               <span className="bg-gold text-dark-DEFAULT text-[10px] font-mono font-bold px-2 py-1 tracking-wider">
@@ -95,7 +93,6 @@ export default function ProductCard({ product, index = 0 }) {
             )}
           </div>
 
-          {/* Image dots */}
           {product.images?.length > 1 && (
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1">
               {product.images.slice(0, 4).map((_, i) => (
@@ -108,13 +105,11 @@ export default function ProductCard({ product, index = 0 }) {
             </div>
           )}
 
-          {/* Hover actions */}
           <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
             <button
               onClick={handleFavorite}
-              className={`w-8 h-8 flex items-center justify-center backdrop-blur-sm transition-colors ${
-                favorited ? 'bg-gold text-dark-DEFAULT' : 'bg-dark-DEFAULT/70 text-white hover:text-gold'
-              }`}
+              className={`w-8 h-8 flex items-center justify-center backdrop-blur-sm transition-colors ${favorited ? 'bg-gold text-dark-DEFAULT' : 'bg-dark-DEFAULT/70 text-white hover:text-gold'
+                }`}
             >
               <Heart size={14} fill={favorited ? 'currentColor' : 'none'} />
             </button>
@@ -127,7 +122,6 @@ export default function ProductCard({ product, index = 0 }) {
             </button>
           </div>
 
-          {/* Out of stock overlay */}
           {product.stock === 0 && (
             <div className="absolute inset-0 bg-dark-DEFAULT/70 flex items-center justify-center">
               <span className="font-mono text-xs tracking-widest text-zinc-400 uppercase">Нет в наличии</span>
@@ -135,7 +129,6 @@ export default function ProductCard({ product, index = 0 }) {
           )}
         </div>
 
-        {/* Info */}
         <div className="p-4">
           <div className="flex items-start justify-between gap-2 mb-1">
             <div>
@@ -146,7 +139,6 @@ export default function ProductCard({ product, index = 0 }) {
             </div>
           </div>
 
-          {/* Rating */}
           {product.rating > 0 && (
             <div className="flex items-center gap-1 mt-1.5 mb-2">
               <Star size={10} className="text-gold fill-gold" />
@@ -154,7 +146,6 @@ export default function ProductCard({ product, index = 0 }) {
             </div>
           )}
 
-          {/* Price */}
           <div className="flex items-end gap-2 mt-auto">
             <span className="font-display text-lg font-medium text-gold">{formatPrice(product.price)}</span>
             {product.original_price && product.original_price > product.price && (

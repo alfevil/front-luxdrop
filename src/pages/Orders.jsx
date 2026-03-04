@@ -6,12 +6,12 @@ import { Package, ChevronDown, ChevronUp } from 'lucide-react';
 const formatPrice = (price) => new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(price);
 
 const STATUS_CONFIG = {
-  pending:    { label: 'Ожидает подтверждения', color: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/30' },
-  confirmed:  { label: 'Подтверждён', color: 'text-blue-400 bg-blue-400/10 border-blue-400/30' },
+  pending: { label: 'Ожидает подтверждения', color: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/30' },
+  confirmed: { label: 'Подтверждён', color: 'text-blue-400 bg-blue-400/10 border-blue-400/30' },
   processing: { label: 'Обрабатывается', color: 'text-purple-400 bg-purple-400/10 border-purple-400/30' },
-  shipped:    { label: 'Отправлен', color: 'text-cyan-400 bg-cyan-400/10 border-cyan-400/30' },
-  delivered:  { label: 'Доставлен', color: 'text-green-400 bg-green-400/10 border-green-400/30' },
-  cancelled:  { label: 'Отменён', color: 'text-red-400 bg-red-400/10 border-red-400/30' },
+  shipped: { label: 'Отправлен', color: 'text-cyan-400 bg-cyan-400/10 border-cyan-400/30' },
+  delivered: { label: 'Доставлен', color: 'text-green-400 bg-green-400/10 border-green-400/30' },
+  cancelled: { label: 'Отменён', color: 'text-red-400 bg-red-400/10 border-red-400/30' },
 };
 
 const STEPS = ['pending', 'confirmed', 'processing', 'shipped', 'delivered'];
@@ -47,7 +47,6 @@ function OrderCard({ order }) {
 
       {expanded && (
         <div className="border-t border-dark-border p-4 md:p-5">
-          {/* Progress bar */}
           {order.status !== 'cancelled' && (
             <div className="mb-5">
               <div className="flex justify-between mb-2">
@@ -69,7 +68,6 @@ function OrderCard({ order }) {
             </div>
           )}
 
-          {/* Items */}
           <div className="space-y-3 mb-4">
             {order.items?.map(item => (
               <div key={item.id} className="flex gap-3 items-center">
@@ -89,7 +87,6 @@ function OrderCard({ order }) {
             ))}
           </div>
 
-          {/* Shipping */}
           <div className="border-t border-dark-border pt-4 grid sm:grid-cols-2 gap-4 text-xs">
             {order.shipping_address && (
               <div>

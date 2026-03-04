@@ -9,7 +9,7 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || '/';
-  
+
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,6 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex">
-      {/* Left visual */}
       <div className="hidden lg:block flex-1 relative overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1200"
@@ -46,7 +45,6 @@ export default function Login() {
         </div>
       </div>
 
-      {/* Form */}
       <div className="flex-1 lg:max-w-md flex items-center justify-center px-8 py-20">
         <div className="w-full max-w-sm">
           <Link to="/" className="block mb-10">

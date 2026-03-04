@@ -89,7 +89,6 @@ export default function Checkout() {
         <form onSubmit={handleSubmit}>
           <div className="grid lg:grid-cols-[1fr_320px] gap-8">
             <div className="space-y-6">
-              {/* Personal info */}
               <div className="card p-6">
                 <h2 className="font-body font-medium text-white mb-5 flex items-center gap-2">
                   <span className="w-6 h-6 bg-gold text-dark-DEFAULT text-xs font-mono flex items-center justify-center">1</span>
@@ -107,7 +106,6 @@ export default function Checkout() {
                 </div>
               </div>
 
-              {/* Address */}
               <div className="card p-6">
                 <h2 className="font-body font-medium text-white mb-5 flex items-center gap-2">
                   <span className="w-6 h-6 bg-gold text-dark-DEFAULT text-xs font-mono flex items-center justify-center">2</span>
@@ -133,7 +131,6 @@ export default function Checkout() {
                 </div>
               </div>
 
-              {/* Payment */}
               <div className="card p-6">
                 <h2 className="font-body font-medium text-white mb-5 flex items-center gap-2">
                   <span className="w-6 h-6 bg-gold text-dark-DEFAULT text-xs font-mono flex items-center justify-center">3</span>
@@ -143,9 +140,8 @@ export default function Checkout() {
                   {[['card', '💳 Карта'], ['sbp', '⚡ СБП'], ['cash', '💵 При получении']].map(([val, label]) => (
                     <label
                       key={val}
-                      className={`flex items-center justify-center gap-2 p-3 border cursor-pointer transition-all ${
-                        form.payment === val ? 'border-gold bg-gold/10 text-gold' : 'border-dark-border text-zinc-400 hover:border-zinc-600'
-                      }`}
+                      className={`flex items-center justify-center gap-2 p-3 border cursor-pointer transition-all ${form.payment === val ? 'border-gold bg-gold/10 text-gold' : 'border-dark-border text-zinc-400 hover:border-zinc-600'
+                        }`}
                     >
                       <input type="radio" name="payment" value={val} checked={form.payment === val} onChange={handleChange} className="hidden" />
                       <span className="font-body text-sm">{label}</span>
@@ -154,7 +150,6 @@ export default function Checkout() {
                 </div>
               </div>
 
-              {/* Notes */}
               <div className="card p-6">
                 <label className="font-mono text-[10px] tracking-widest text-zinc-500 uppercase block mb-1.5">Комментарий к заказу</label>
                 <textarea
@@ -168,7 +163,6 @@ export default function Checkout() {
               </div>
             </div>
 
-            {/* Summary */}
             <div className="lg:sticky lg:top-24 self-start">
               <div className="card p-6">
                 <h3 className="font-body font-medium text-white mb-4">Ваш заказ</h3>

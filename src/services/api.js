@@ -7,14 +7,12 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' }
 });
 
-// Inject token on every request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('luxdrop_token');
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-// Handle 401
 api.interceptors.response.use(
   (res) => res,
   (err) => {
@@ -27,7 +25,6 @@ api.interceptors.response.use(
   }
 );
 
-// Auth
 export const authAPI = {
   register: (data) => api.post('/auth/register', data),
   login: (data) => api.post('/auth/login', data),
@@ -35,14 +32,12 @@ export const authAPI = {
   updateProfile: (data) => api.put('/auth/profile', data),
 };
 
-// Products
 export const productsAPI = {
   getAll: (params) => api.get('/products', { params }),
   getOne: (id) => api.get(`/products/${id}`),
   getCategories: () => api.get('/products/categories'),
 };
 
-// Cart
 export const cartAPI = {
   get: () => api.get('/cart'),
   add: (data) => api.post('/cart', data),
@@ -51,7 +46,6 @@ export const cartAPI = {
   clear: () => api.delete('/cart'),
 };
 
-// Orders
 export const ordersAPI = {
   getAll: () => api.get('/orders'),
   getOne: (id) => api.get(`/orders/${id}`),
@@ -59,7 +53,6 @@ export const ordersAPI = {
   cancel: (id) => api.put(`/orders/${id}/cancel`),
 };
 
-// Favorites
 export const favoritesAPI = {
   getAll: () => api.get('/favorites'),
   add: (productId) => api.post(`/favorites/${productId}`),

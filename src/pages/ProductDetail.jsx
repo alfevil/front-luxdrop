@@ -197,7 +197,6 @@ export default function ProductDetail() {
   return (
     <div className="min-h-screen pt-20 md:pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        {/* Breadcrumb */}
         <nav className="flex items-center gap-2 mb-8 font-mono text-xs text-zinc-600">
           <Link to="/" className="hover:text-gold transition-colors">Главная</Link>
           <span>/</span>
@@ -213,7 +212,6 @@ export default function ProductDetail() {
         </nav>
 
         <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
-          {/* Images */}
           <div>
             <div className="relative aspect-square overflow-hidden bg-dark-muted mb-3 group">
               <img
@@ -245,7 +243,6 @@ export default function ProductDetail() {
                 </>
               )}
             </div>
-            {/* Thumbnails */}
             {images.length > 1 && (
               <div className="flex gap-2">
                 {images.map((img, i) => (
@@ -262,12 +259,10 @@ export default function ProductDetail() {
             )}
           </div>
 
-          {/* Info */}
           <div>
             <p className="gold-label mb-2">{product.brand}</p>
             <h1 className="font-display text-3xl md:text-4xl font-light text-white mb-3 leading-tight">{product.name}</h1>
 
-            {/* Rating */}
             {product.rating > 0 && (
               <div className="flex items-center gap-2 mb-4">
                 <div className="flex gap-0.5">
@@ -279,7 +274,6 @@ export default function ProductDetail() {
               </div>
             )}
 
-            {/* Price */}
             <div className="flex items-end gap-3 mb-6 pb-6 border-b border-dark-border">
               <span className="font-display text-4xl font-light text-gold">{formatPrice(product.price)}</span>
               {product.original_price > product.price && (
@@ -290,7 +284,6 @@ export default function ProductDetail() {
               )}
             </div>
 
-            {/* Color picker */}
             {product.colors?.length > 0 && (
               <div className="mb-5">
                 <div className="flex items-center justify-between mb-2">
@@ -312,7 +305,6 @@ export default function ProductDetail() {
               </div>
             )}
 
-            {/* Size picker */}
             {product.sizes?.length > 0 && (
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
@@ -325,8 +317,8 @@ export default function ProductDetail() {
                       key={size}
                       onClick={() => setSelectedSize(size)}
                       className={`min-w-[44px] py-2 px-3 text-sm font-mono border transition-all ${selectedSize === size
-                          ? 'border-gold bg-gold text-dark-DEFAULT font-bold'
-                          : 'border-dark-border text-zinc-400 hover:border-zinc-500'
+                        ? 'border-gold bg-gold text-dark-DEFAULT font-bold'
+                        : 'border-dark-border text-zinc-400 hover:border-zinc-500'
                         }`}
                     >
                       {size}
@@ -336,7 +328,6 @@ export default function ProductDetail() {
               </div>
             )}
 
-            {/* Stock indicator */}
             <div className="flex items-center gap-2 mb-6">
               <div className={`w-2 h-2 rounded-full ${product.stock > 10 ? 'bg-green-400' : product.stock > 0 ? 'bg-yellow-400' : 'bg-red-400'}`} />
               <span className="font-mono text-xs text-zinc-500">
@@ -344,7 +335,6 @@ export default function ProductDetail() {
               </span>
             </div>
 
-            {/* CTA buttons */}
             <div className="flex gap-3 mb-8">
               <button
                 onClick={handleAddToCart}
@@ -367,7 +357,6 @@ export default function ProductDetail() {
               </button>
             </div>
 
-            {/* Perks */}
             <div className="space-y-3 border-t border-dark-border pt-6">
               {[
                 [Shield, 'Верификация Poizon', 'Каждый товар проверен на подлинность'],
@@ -384,7 +373,6 @@ export default function ProductDetail() {
               ))}
             </div>
 
-            {/* Description */}
             {product.description && (
               <div className="mt-6 border-t border-dark-border pt-6">
                 <h3 className="gold-label mb-3">Описание</h3>
@@ -392,7 +380,6 @@ export default function ProductDetail() {
               </div>
             )}
 
-            {/* SKU */}
             {product.sku && (
               <p className="mt-4 font-mono text-xs text-zinc-700">SKU: {product.sku}</p>
             )}
@@ -400,7 +387,6 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      {/* Size Guide Modal */}
       {showSizeGuide && (
         <SizeGuideModal
           onClose={() => setShowSizeGuide(false)}

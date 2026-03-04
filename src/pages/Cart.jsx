@@ -53,11 +53,9 @@ export default function Cart() {
         </div>
 
         <div className="grid lg:grid-cols-[1fr_360px] gap-8">
-          {/* Items */}
           <div className="space-y-3">
             {items.map(item => (
               <div key={item.id} className="card p-4 flex gap-4">
-                {/* Image */}
                 <Link to={`/product/${item.product_id}`} className="flex-shrink-0">
                   <div className="w-24 h-24 md:w-28 md:h-28 overflow-hidden bg-dark-muted">
                     <img
@@ -68,7 +66,6 @@ export default function Cart() {
                   </div>
                 </Link>
 
-                {/* Info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
                     <div>
@@ -91,7 +88,6 @@ export default function Cart() {
                   </div>
 
                   <div className="flex items-center justify-between mt-3">
-                    {/* Quantity */}
                     <div className="flex items-center border border-dark-border">
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -109,7 +105,6 @@ export default function Cart() {
                       </button>
                     </div>
 
-                    {/* Price */}
                     <span className="font-display text-lg text-gold">
                       {formatPrice(item.price * item.quantity)}
                     </span>
@@ -119,7 +114,6 @@ export default function Cart() {
             ))}
           </div>
 
-          {/* Order summary */}
           <div className="lg:sticky lg:top-24 self-start">
             <div className="card p-6">
               <h2 className="font-body font-medium text-white mb-5">Итого</h2>
@@ -157,7 +151,6 @@ export default function Cart() {
               </Link>
             </div>
 
-            {/* Trust badges */}
             <div className="mt-4 card p-4 space-y-2">
               {['✅ Верификация Poizon', '🔒 Безопасная оплата', '📦 Доставка 7–14 дней'].map(text => (
                 <p key={text} className="font-mono text-[10px] text-zinc-500">{text}</p>

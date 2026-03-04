@@ -180,11 +180,15 @@
 }
 
 @keyframes shimmer {
-  0% { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
 }
 
-/* Custom range slider */
 input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
@@ -202,7 +206,6 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
 }
 
-/* Swiper custom styles */
 .swiper-pagination-bullet {
   background: #C9A84C !important;
   opacity: 0.4 !important;
