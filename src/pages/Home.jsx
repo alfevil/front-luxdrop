@@ -49,9 +49,10 @@ export default function Home() {
       <section className="relative min-h-screen flex items-center overflow-hidden">
         <div ref={heroRef} className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1556906781-9a412961a28c?w=1600"
+            src="https://images.unsplash.com/photo-1556906781-9a412961a28c?w=1600&q=80&auto=format&fit=crop"
             alt="Hero"
             className="w-full h-full object-cover"
+            onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1600&q=80&auto=format&fit=crop'; }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-dark-DEFAULT via-dark-DEFAULT/80 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-dark-DEFAULT via-transparent to-dark-DEFAULT/30" />
